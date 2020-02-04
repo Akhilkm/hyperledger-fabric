@@ -61,6 +61,7 @@ orderer
 ```
 General format
 peer command subcommand --flags
+```
 command     | description                    |
 ----------------------------------------------
 help        | Get help on commands           |
@@ -75,4 +76,4 @@ channel     | Carry out channel operations   |
 ----------------------------------------------
 chaincode   | Carry out chaincode operations |
 
-```
+
