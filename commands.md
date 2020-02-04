@@ -89,7 +89,6 @@ peer logging revertlevel
 
 Channel operations
 ```
-|-------------------------------------------------------------------|
 |command        | description                                       |
 |---------------|---------------------------------------------------|
 |create         | Create channel on the network                     |
@@ -98,4 +97,3 @@ Channel operations
 |fetch          | Performs a operation on orderer to fetch a block  |
 |getinfo        | Get information on the specified channel          |
 |signconfigtx   | For signing the config transaction file           |
-|-------------------------------------------------------------------|
