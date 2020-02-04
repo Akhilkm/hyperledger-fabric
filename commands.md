@@ -62,13 +62,13 @@ orderer
 General format
 peer command subcommand --flags
 ```
-command     | description                    |
-----------------------------------------------
-help        | Get help on commands           |
-version     | Version of the peer binary     |
-node        | start/ status                  |
-logging     | get/set/revert log levels      |
-channel     | Carry out channel operations   |
-chaincode   | Carry out chaincode operations |
+|command     | description                    |
+|------------|--------------------------------|
+|help        | Get help on commands           |
+|version     | Version of the peer binary     |
+|node        | start/ status                  |
+|logging     | get/set/revert log levels      |
+|channel     | Carry out channel operations   |
+|chaincode   | Carry out chaincode operations |
 
 
