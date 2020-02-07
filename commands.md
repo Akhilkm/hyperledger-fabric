@@ -97,3 +97,21 @@ Channel operations
 |fetch          | Performs a operation on orderer to fetch a block  |
 |getinfo        | Get information on the specified channel          |
 |signconfigtx   | For signing the config transaction file           |
+|update         | Updating the existing channel config              |
+
+```
+peer channel create -o <<orderer address>> -c <<channel name>> -f <<path to create channel transaction>> -t <<Optional timeout>>
+peer channel join -o <<orderer address>> -b <<path to block response>>
+peer channel list
+
+peer channel fetch -o <<orderer address>>  command -c <<channelid>> -o <<orderer address>> <<optional output file>>
+```
+|command              | description                                              |
+|---------------------|----------------------------------------------------------|
+|newest               | Fetches the latest block                                 |
+|oldest               | Fetches the oldest block                                 |
+|Block Number         | Fetch by block Number                                    |
+|config               | Gets the latest config block. Also provides bock number  |
+```
+peer channel get info --flags
+```
