@@ -104,7 +104,8 @@ peer channel create -o <<orderer address>> -c <<channel name>> -f <<path to crea
 peer channel join -o <<orderer address>> -b <<path to block response>>
 peer channel list
 
-peer channel fetch -o <<orderer address>>  command -c <<channelid>> -o <<orderer address>> <<optional output file>>
+peer channel getinfo -c <<channelid>> 
+peer channel fetch command -o <<orderer address>> -c <<channelid>> -o <<orderer address>> <<optional output file>>
 ```
 |command              | description                                              |
 |---------------------|----------------------------------------------------------|
@@ -113,5 +114,27 @@ peer channel fetch -o <<orderer address>>  command -c <<channelid>> -o <<orderer
 |Block Number         | Fetch by block Number                                    |
 |config               | Gets the latest config block. Also provides bock number  |
 ```
-peer channel get info --flags
+peer channel signconfigtx --flags
+peer channel signconfigtx -f <<Transaction File>>
+
+peer channel update -f <<signed transaction file>> -c <<channel id>> -o <<orderer url>>
+
+peer chaincode install --flags
 ```
+|flag                 | description                                              |
+|---------------------|----------------------------------------------------------|
+|-n --name            | Name and version of chaincode being installed            |
+|-v --version         | Version: alphabets, numbers, dash, underscore, plus      |
+|-l --lang            | golang (default), nodejs                                 |
+|-p --path            | Path to code depends on lang specified                   |
+```
+peer chaincode install -n gocc -v 2.0 -p chaincod_example
+
+peer chaincode instanciate --flags
+```
+|flag                 | description                                              |
+|---------------------|----------------------------------------------------------|
+|-n --name            | Name and version of chaincode being installed            |
+|-v --version         | Version: alphabets, numbers, dash, underscore, plus      |
+|-c --ctor            | default{}  constructor parameter in json format          |
+|-C --channelId       | channel on which chaincode is instantiated               |
