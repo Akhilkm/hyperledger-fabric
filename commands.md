@@ -128,13 +128,139 @@ peer chaincode install --flags
 |-l --lang            | golang (default), nodejs                                 |
 |-p --path            | Path to code depends on lang specified                   |
 ```
-peer chaincode install -n gocc -v 2.0 -p chaincod_example
+peer chaincode install -n gocc -v 1.0 -p chaincode_example
 
-peer chaincode instanciate --flags
+peer chaincode instantiate --flags
 ```
-|flag                 | description                                              |
-|---------------------|----------------------------------------------------------|
-|-n --name            | Name and version of chaincode being installed            |
-|-v --version         | Version: alphabets, numbers, dash, underscore, plus      |
-|-c --ctor            | default{}  constructor parameter in json format          |
-|-C --channelId       | channel on which chaincode is instantiated               |
+|flag                 | description                                                                          |
+|---------------------|--------------------------------------------------------------------------------------|
+|-n --name            | Name and version of chaincode being installed                                        |
+|-v --version         | Version: alphabets, numbers, dash, underscore, plus                                  |
+|-c --ctor            | default{}  constructor parameter in json format                                      |
+|-C --channelId       | channel on which chaincode is instantiated                                           |
+|-P --policy          | Endorsement policy of chaincode, Default (Any member of org that is part of channel) |
+|-E --escc            | Name of the endorsement system chaincode (default: 'escc')                           |
+|-V --vscc            | Name of the verification system chaincode (default: 'vscc')                          |
+
+```
+peer chaincode instantiate -n gocc -v 1.0 -C org1org2channel -c '{"Args": ["init","a","100","b","200"]}'
+
+peer chaincode list --installed
+peer chaincode list --instantiated -C <<channel id>>
+
+peer chaincode upgrade -n gocc -v 2.0 -C org1org2channel -c '{"Args": ["init","a","100","b","200"]}'
+Note: instantiate flags are also applied here
+
+peer chaincode query --flags
+```
+|flag                 | description                                                                          |
+|---------------------|--------------------------------------------------------------------------------------|
+|-n --name            | Name and version of chaincode being installed                                        |
+|-c --ctor            | default{}  constructor parameter in json format                                      |
+|-C --channelId       | channel on which chaincode is instantiated                                           |
+
+```
+peer chaincode invoke --flags
+```
+|flag                 | description                                                                          |
+|---------------------|--------------------------------------------------------------------------------------|
+|-n --name            | Name and version of chaincode being installed                                        |
+|-c --ctor            | default{}  constructor parameter in json format                                      |
+|-C --channelId       | channel on which chaincode is instantiated                                           |
+
+```
+peer chaincode package  --flags <<file name>>
+Note: same flags as install command
+-i --instantiate-policy } instantiation policy (Still under development)
+peer chaincode install <<package file>>
+```
+
+## configxlator
+
+2 mode
+* Command line interface
+* Rest server
+
+* No configuration file for this tool
+
+```
+To start as a rest server
+
+configxlator start --hostname localhost --port 7059
+
+Command Line
+
+configxlator command --flags
+configxlator help
+configxlator command --help
+configxlator version
+```
+|command                 | description                                          |
+|------------------------|------------------------------------------------------|
+|proto-decode            | protobuf => json                                     |
+|proto-encode            | json => protobuf                                     |
+|compute_update          | delta between 2 protobuf                             |
+
+|flags       | description                                                                                    |
+|------------|------------------------------------------------------------------------------------------------|
+|--type      | Type of protobuf structure to encode/decode (common.(Block,Config,Envelope,Configupdate,policy)|
+|--input     | protobuf or json                                                                               |
+|--output    | protobuf or json                                                                               |
+|--origninal | use with compute_update (original config file)                                                 |
+|--updated   | use with compute_update (updated config file)                                                  |
+|--channel_id| use with compute_update (updated config file)                                                  |
+
+### fabric-ca-server
+```
+fabric-ca-server command --flags
+
+fabric-ca-server version 
+fabric-ca-server init 
+fabric-ca-server start
+fabric-ca-server --help
+
+fabric-ca-server command --help
+```                            
+|flag                 | description                                          |
+|---------------------|------------------------------------------------------|
+|-d --debug           | To enable debug level logging                        |
+|-b --boot            | Bootstrap identity                                   |
+|--address            | Listening address. Default => 0.0.0.0                |   
+|-p                   | Listening port Default => 7054                       |
+|-n --ca-name         | Name for the CA                                      |
+```
+Other related flag domains
+
+Certificate => CA certificate setup
+TLs => Transport Layer Security
+CSR => Certificate Signing Request
+Database => DB config for cluster setup
+LDAP => LDAP config for cluster setup
+Intermediate CA => ICA configuration
+
+CA server can launch without initializing - Good for testing
+fabric-ca-server start -b admin:adminpw
+
+Config can be provided by way of flags | environment | YAML (in order of precedence)
+```
+
+### fabric-ca-client
+```
+fabric-ca-client command --flags
+
+fabric-ca-client version
+fabric-ca-client --help
+fabric-ca-client command --help
+```
+|command        | description                             |
+|---------------|-----------------------------------------|
+|getcainfo      | get CA information                      |
+|identity       | Manage the identities                   |
+|register       | Register an identity                    |   
+|enroll         | Enroll an identity                      |
+|reenroll       | Re-Enroll an identity                   |
+|affiliation    | Manage affiliation                      |   
+|certificate    | Manage certificates                     |
+|revoke         | Revoke identity                         |
+|gencrl         | Generate certificate revocation req     |
+|gencsr         | Generate certificate signing request    |   
